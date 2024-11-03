@@ -22,8 +22,8 @@ public class Main {
         userService.cleanUsersTable();
         userService.dropUsersTable();
         try {
-            Util.closeConnection(Util.connection);
-        } catch (SQLException e) {
+            Util.closeConnection(Util.getConnection());
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

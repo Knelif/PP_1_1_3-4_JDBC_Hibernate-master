@@ -27,7 +27,7 @@ public class Util {
         }
     }
 
-    public static Connection connection;
+    private static  Connection connection;
 
     private Util() {
 
