@@ -27,6 +27,10 @@ public class Util {
         }
     }
 
+    private Util() {
+
+    }
+
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
         return getConnection(dbUrl, userName, password);
     }
@@ -34,6 +38,10 @@ public class Util {
     public static Connection getConnection(String dbUrl, String userName, String password) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         return DriverManager.getConnection(dbUrl, userName, password);
+    }
+
+    public static void closeConnection(Connection connection) throws SQLException {
+        connection.close();
     }
 
 }
