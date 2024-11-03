@@ -62,8 +62,8 @@ public class UserDaoJDBCImpl implements UserDao {
     @Override
     public void saveUser(String name, String lastName, byte age) {
         try {
-            Savepoint savepoint = connection.setSavepoint();
             connection.setAutoCommit(false);
+            Savepoint savepoint = connection.setSavepoint();
             try (PreparedStatement preparedStatement = connection.prepareStatement(_insertUserSQL)) {
                 preparedStatement.setString(1, name);
                 preparedStatement.setString(2, lastName);
@@ -82,8 +82,8 @@ public class UserDaoJDBCImpl implements UserDao {
     @Override
     public void removeUserById(long id) {
         try {
-            Savepoint savepoint = connection.setSavepoint();
             connection.setAutoCommit(false);
+            Savepoint savepoint = connection.setSavepoint();
             try (PreparedStatement preparedStatement = connection.prepareStatement(_deleteUserByIdSQL)) {
                 preparedStatement.setLong(1, id);
                 messegeQuerry("User was deleted by id " + id, _deleteUserByIdSQL, preparedStatement.executeUpdate());

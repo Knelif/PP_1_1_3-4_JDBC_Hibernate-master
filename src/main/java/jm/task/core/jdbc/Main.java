@@ -11,6 +11,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         UserService userService = new UserServiceImpl();
+        userService.createUsersTable();
         List.of(new User("Максим", "Николаев", (byte) 24),
                         new User("Маргарита", "Лебедева", (byte) 21),
                         new User("Олег", "Коровин", (byte) 35),

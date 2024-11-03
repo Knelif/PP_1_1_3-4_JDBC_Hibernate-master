@@ -39,12 +39,15 @@ public class Util {
 
     public static Connection getConnection(String dbUrl, String userName, String password) throws ClassNotFoundException, SQLException {
         if (connection != null && !connection.isClosed()) return connection;
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        return DriverManager.getConnection(dbUrl, userName, password);
+        else {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(dbUrl, userName, password);
+            return connection;
+        }
     }
 
     public static void closeConnection(Connection connection) throws SQLException {
-        if (connection != null && !connection.isClosed()) {
+        if (connection != null) {
             connection.close();
         }
     }
