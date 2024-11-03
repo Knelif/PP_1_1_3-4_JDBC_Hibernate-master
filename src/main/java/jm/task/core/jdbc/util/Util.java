@@ -27,6 +27,8 @@ public class Util {
         }
     }
 
+    public static Connection connection;
+
     private Util() {
 
     }
@@ -36,12 +38,15 @@ public class Util {
     }
 
     public static Connection getConnection(String dbUrl, String userName, String password) throws ClassNotFoundException, SQLException {
+        if (connection != null && !connection.isClosed()) return connection;
         Class.forName("com.mysql.cj.jdbc.Driver");
         return DriverManager.getConnection(dbUrl, userName, password);
     }
 
     public static void closeConnection(Connection connection) throws SQLException {
-        connection.close();
+        if (connection != null && !connection.isClosed()) {
+            connection.close();
+        }
     }
 
 }
