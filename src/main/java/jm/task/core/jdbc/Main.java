@@ -16,12 +16,12 @@ public class Main {
                         new User("Олег", "Коровин", (byte) 35),
                         new User("Матвей", "Морозов", (byte) 27))
                 .forEach(userService::saveUser);
-       System.out.println(userService.getAllUsers());
+        System.out.println(userService.getAllUsers());
 
         userService.cleanUsersTable();
         userService.dropUsersTable();
         try {
-            Util.closeConnection(Util.getConnection());
+            Util.closeSessionFactory(Util.getSessionFactory());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

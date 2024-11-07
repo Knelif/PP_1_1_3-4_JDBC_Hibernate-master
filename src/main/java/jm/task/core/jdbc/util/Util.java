@@ -19,12 +19,13 @@ public class Util {
     private static final Configuration hiberConfiguration = new Configuration();
 
     static {
+        // JDBC Configuration
         try (InputStream in = Files.newInputStream(Paths.get(propsDir))) {
             dataBaseProperties.load(in);
         } catch (IOException e) {
             System.out.printf("Error reading properties file in directory: %s. Properties values set as default ", propsDir);
         }
-
+        // Hibernate Configuration
         hiberConfiguration.addAnnotatedClass(User.class);
     }
 
@@ -55,9 +56,7 @@ public class Util {
     }
 
     public static SessionFactory getSessionFactory() {
-        if (sessionFactory == null) {
-            sessionFactory = hiberConfiguration.buildSessionFactory();
-        }
+        if (sessionFactory == null) sessionFactory = hiberConfiguration.buildSessionFactory();
         return sessionFactory;
     }
 
