@@ -2,6 +2,7 @@ package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -72,16 +73,18 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             sessionConsumer.accept(session);
             transaction.commit();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             if (transaction != null) transaction.rollback();
         }
     }
 
-    public void executeSQL(Consumer<Session> sessionConsumer) {
+    private void executeSQL(Consumer<Session> sessionConsumer) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             sessionConsumer.accept(session);
             session.getTransaction().commit();
+        } catch (HibernateException hibernateException) {
+            throw hibernateException;
         }
     }
 
